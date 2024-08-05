@@ -1,12 +1,14 @@
-T = int(input())
+import sys
+
+T = int(sys.stdin.readline())
 applicantList = []
 result = []
 
 for _ in range(T) :
-  applicantNum = int(input())
+  applicantNum = int(sys.stdin.readline())
 
   for _ in range(applicantNum) :
-    applicantList.append(list(map(int, input().split(' '))))
+    applicantList.append(list(map(int, sys.stdin.readline().split(' '))))
 
   applicantList.sort(key=lambda x: x[0])
   count = 1
