@@ -1,14 +1,29 @@
-# import sys
+import sys
+sys.setrecursionlimit(10**6)
+
+def dfs(node , distance):
+  for node_child, cost in graph[node]:
+    node_distance = distance + cost
+    if visited_distance[node_child] == -1:
+      visited_distance[node_child] = node_distance
+      dfs(node_child, node_distance)
 
 
-# array = []
+nodeCnt = int(sys.stdin.readline().rstrip())
+graph = [[] for _ in range(nodeCnt+1)]
+visited_distance = [-1]*(nodeCnt+1)
+visited_distance[1] = 0
 
-# nodeCnt = sys.stdin.readline().strip();
+for _ in range(nodeCnt-1):
+  a, b, weight = map(int, sys.stdin.readline().rstrip().split())
+  graph[a].append([b, weight])
+  graph[b].append([a, weight])
 
-# for _ in range(nodeCnt - 1):
-#     line = sys.stdin.readline().strip()
-#     array.append([int(x) for x in line.split()]) 
+dfs(1, 0)
 
-# def diameterFn (array, start, )
+farNodeIdx = visited_distance.index(max(visited_distance))
+visited_distance = [-1]*(nodeCnt+1)
+visited_distance[farNodeIdx] = 0
+dfs(farNodeIdx, 0)
 
-
+print(max(visited_distance))
