@@ -20,11 +20,3 @@ minCnt = min(HArrayOneCnt[:H])
 result = HArrayOneCnt[:H].count(minCnt)
 
 print(minCnt, result)
-
-#   |   |   |
-#   |   |
-#   |   | |
-#   |     |
-#   | |   |
-#     |   |
-# |   |   |
