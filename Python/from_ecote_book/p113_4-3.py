@@ -10,6 +10,6 @@ for i in range(n+1):
 
       if '3' in arr :
         count += 1
-      arr = []
+      arr = [] 
 
 print(count)
