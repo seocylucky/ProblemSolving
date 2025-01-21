@@ -2,15 +2,14 @@ n = int(input())
 count = 0
 arr = []
 
-for i in range(1, n+1):
-  for hour in range(1, 60):
-    for minute in range(1, 60):
-      arr.append(i)
-      arr.append(hour)
-      arr.append(minute)
+for i in range(n+1):
+  for hour in range(60):
+    for minute in range(60):
+      beforeArr = str(i) + str(hour)+ str(minute)
+      arr = list(beforeArr)
 
-      if 3 in arr :
+      if '3' in arr :
         count += 1
-        arr = []
+      arr = []
 
 print(count)
