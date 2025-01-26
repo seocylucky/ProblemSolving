@@ -10,8 +10,8 @@ dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
 def bfs(x, y):
-  q = deque([])
-  q.append((x, y))
+  q = deque([(x, y)])
+  # q.append((x, y))
 
   while q:
     x, y = q.popleft()
