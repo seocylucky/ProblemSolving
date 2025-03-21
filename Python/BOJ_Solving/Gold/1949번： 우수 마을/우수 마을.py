@@ -3,24 +3,30 @@
 # 우수마일 - 비우수마을 조합으로 무조건 있어야 함
 
 n = int(input()) # 마을 개수
-neighborList = list(map(int, input().split())) # 마을 당 주민 수
+neighborList = [0] + list(map(int, input().split())) # 마을 당 주민 수
 townBestCheckList = [0 for i in range(n)]
-townArr = [[] for _ in range(n)] # 마을 별 인접한 마을을 담은 리스트
+townArr = [[] for _ in range(n+1)] # 마을 별 인접한 마을을 담은 리스트
 sumNum = 0
 
-for _ in range(1, n): # 인접한 마을 설정
-  start, end = map(int, input().split())
-  townArr[start-1].append(end)
-  townArr[end-1].append(start)
+for _ in range(n-1): # 인접한 마을 설정
+  u, v = map(int, input().split())
+  townArr[u].append(v)
+  townArr[v].append(u)
 
 print(townArr)
 
-while neighborList:
-  BestMaxNumTown = neighborList.index(max(neighborList))
+visited = [False] * (n + 1)
+dp = [[townArr[i], 0] for i in range(n+1)]
 
-  if len(townArr[BestMaxNumTown]) != n:
-    neighborList.remove(townBestCheckList[BestMaxNumTown])
-    for removeList in townArr[BestMaxNumTown
-    sumNum += neighborList[BestMaxNumTown]
-  
-  if not in townArr[BestMaxNumTown]
+def dfs(node):
+    visited[node] = True 
+
+    for child in townArr[node]:
+        if visited[child]:
+            continue
+
+        dfs(child)
+        dp[node][0] += dp[child][1]
+        dp[node][1] += max(dp[child][0], dp[child][1])
+
+      
