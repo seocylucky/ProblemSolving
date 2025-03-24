@@ -7,8 +7,6 @@ for _ in range(n):
   sour, bit = map(int, input().split())
   ingredients.append([sour, bit])
 
-result = abs(ingredients[0][0] - ingredients[0][1])
-
 for i in ingredients:
     result = min(result, abs(i[0]-i[1]))
     
