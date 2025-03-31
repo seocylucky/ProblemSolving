@@ -1,5 +1,3 @@
-# 시간 복잡도 -> n 제곱
-
 N = int(input())
 
 scores = list(map(int, input().split()))
