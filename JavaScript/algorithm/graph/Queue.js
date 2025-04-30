@@ -5,7 +5,7 @@ class Queue {
 
   push(item) {
     this.items.push(item);
-    this.front++;
+    this.rear++;
   }
 
   pop() {
