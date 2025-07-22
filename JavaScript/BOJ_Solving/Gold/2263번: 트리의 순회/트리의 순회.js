@@ -32,6 +32,9 @@ const findPreorder = (inStart, inEnd, postStart, postEnd) => {
   findPreorder(rootIndexInInorder + 1, inEnd, postStart + leftSubtreeSize, postEnd - 1);
 };
 
+1` ,m.
+jj  
+;`;
 // 트리의 루트부터 시작하여 preorder를 찾음
 findPreorder(0, n - 1, 0, n - 1);
 
