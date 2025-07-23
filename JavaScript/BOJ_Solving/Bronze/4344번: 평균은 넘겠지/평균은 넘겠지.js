@@ -12,7 +12,13 @@ for (let i = 0; i < c; i++) {
     sum += scores[j];
   }
 
-  const avg = Math.round(sum / scores.length).toFixed(3);
+  const avg = sum / scores.length;
 
-  console.log(`${avg}%`);
+  let count = 0;
+  for (let j = 0; j < scores.length; j++) {
+    if (scores[j] > avg) count++;
+  }
+
+  const ratio = (count / scores.length) * 100;
+  console.log(ratio.toFixed(3) + "%");
 }
