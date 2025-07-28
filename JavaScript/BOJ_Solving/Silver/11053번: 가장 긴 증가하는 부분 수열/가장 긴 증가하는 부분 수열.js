@@ -3,15 +3,17 @@ const input = require("fs").readFileSync("/dev/stdin").toString().trim().split("
 const n = parseInt(input[0]);
 const arr = input[1].split(" ").map(Number);
 
-let max_length = 0;
+let cur = 1;
+let max_length = 1;
 
-for (let i = 1; i < arr.length; i++) {
-  let cur = 0;
-  if (arr[i] - arr[i - 1] > 0) {
-    cur++;
-  } else {
-    max_length = Math.max(cur, max_length);
+const dp = Array.from({ length: n }).fill(1);
+
+for (let i = 1; i < n; i++) {
+  for (let j = 0; j < i; j++) {
+    if (arr[i] > arr[j]) {
+      dp[i] = Math.max(dp[i], dp[j] + 1);
+    }
   }
 }
 
-console.log(max_length);
+console.log(Math.max(...dp));
