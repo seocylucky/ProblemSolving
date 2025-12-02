@@ -1,5 +1,5 @@
 const fs = require("fs");
-const input = fs.readFileSync(0, "utf8").trim().split(/\s+/);
+const lines = fs.readFileSync(0, "utf8").trim().split("\n");
 
 class MinHeap {
   constructor() {
@@ -18,10 +18,16 @@ class MinHeap {
   pop() {
     if (this.size() === 0) return null;
     const min = this.items[0];
-    this.items[0] = this.items[this.size() - 1];
-    this.items.pop();
-    this.bubbleDown();
+    const last = this.items.pop();
+    if (this.size() > 0) {
+      this.items[0] = last;
+      this.bubbleDown();
+    }
     return min;
+  }
+
+  peek() {
+    return this.size() === 0 ? null : this.items[0];
   }
 
   swap(a, b) {
@@ -32,9 +38,7 @@ class MinHeap {
     let index = this.size() - 1;
     while (index > 0) {
       const parentIndex = Math.floor((index - 1) / 2);
-      if (this.items[parentIndex] <= this.items[index]) {
-        break;
-      }
+      if (this.items[parentIndex] <= this.items[index]) break;
       this.swap(index, parentIndex);
       index = parentIndex;
     }
@@ -42,18 +46,17 @@ class MinHeap {
 
   bubbleDown() {
     let index = 0;
-    while (index * 2 + 1 < this.size()) {
-      let leftChild = index * 2 + 1;
-      let rightChild = index * 2 + 2;
-      let smallerChild =
-        rightChild < this.size() &&
-        this.items[rightChild] < this.items[leftChild]
-          ? rightChild
-          : leftChild;
+    const size = this.size();
+    while (index * 2 + 1 < size) {
+      const leftChild = index * 2 + 1;
+      const rightChild = index * 2 + 2;
+      let smallerChild = leftChild;
 
-      if (this.items[index] <= this.items[smallerChild]) {
-        break;
+      if (rightChild < size && this.items[rightChild] < this.items[leftChild]) {
+        smallerChild = rightChild;
       }
+
+      if (this.items[index] <= this.items[smallerChild]) break;
 
       this.swap(index, smallerChild);
       index = smallerChild;
@@ -61,22 +64,31 @@ class MinHeap {
   }
 }
 
-let idx = 0;
-const T = parseInt(input[idx++], 10);
-let out = [];
+let lineIdx = 0;
+const T = parseInt(lines[lineIdx++], 10);
+const out = [];
 
 for (let tc = 0; tc < T; tc++) {
-  const M = parseInt(input[idx++], 10);
+  const M = parseInt(lines[lineIdx++], 10);
+
+  const nums = [];
+  while (nums.length < M && lineIdx < lines.length) {
+    const parts = lines[lineIdx++].trim().split(" ").filter(Boolean);
+    for (const p of parts) {
+      nums.push(parseInt(p, 10));
+      if (nums.length === M) break;
+    }
+  }
 
   const lower = new MinHeap();
   const upper = new MinHeap();
-
   const meds = [];
 
   for (let i = 0; i < M; i++) {
-    const x = parseInt(input[idx++], 10);
+    const x = nums[i];
 
-    if (lower.size() === 0 || x <= -lower.items[0]) {
+    const lowerTop = lower.peek();
+    if (lower.size() === 0 || x <= -lowerTop) {
       lower.insert(-x);
     } else {
       upper.insert(x);
@@ -91,7 +103,7 @@ for (let tc = 0; tc < T; tc++) {
     }
 
     if (i % 2 === 0) {
-      meds.push(-lower.items[0]);
+      meds.push(-lower.peek());
     }
   }
 
